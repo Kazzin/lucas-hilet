@@ -3,8 +3,8 @@
 
 <template>
 	<div>
-		<router-view></router-view>
 		<Navbar/>
+		<router-view></router-view>
 	</div>
 </template>
 

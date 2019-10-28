@@ -1,53 +1,53 @@
 <style lang="scss" scoped>
 #navbar {
-    height: 100%;
-    width: 200px;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 1;
-    background-color:rgba(0, 0, 0, 0.8);
-    padding-top: 20px;
-    text-align: center;
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding-top: 20px;
+  text-align: center;
 }
-  
+
 #navbar a {
-    padding-bottom: 30px;
-    text-decoration: none;
-    font-size: 15px;
-    color: #818181;
-    display: block;
-    font-family: 'Concert One', cursive;
-    text-align: center;
+  padding-bottom: 30px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #818181;
+  display: block;
+  font-family: "Concert One", cursive;
+  text-align: center;
 }
-  
+
 #navbar a:hover {
-    color: #f1f1f1;
-    text-decoration: none;
+  color: #f1f1f1;
+  text-decoration: none;
 }
-  
+
 #navbar ul {
-    padding-top: 50px;
-    list-style: none;
+  padding-top: 50px;
+  list-style: none;
 }
 
 @media (max-width: 768px) {
-    #navbar {
-        display: none;
-    }
+  #navbar {
+    display: none;
+  }
 }
 
 #perfil {
-    width: 150px;
-    height: 150px;
-    animation-delay: 0.3s;
-    border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0.3s;
+  border-radius: 50%;
 }
 
 #nombre {
-    animation-delay: 1s;
-    font-family: 'Concert One', cursive;
-    color: white;
+  animation-delay: 1s;
+  font-family: "Concert One", cursive;
+  color: white;
 }
 </style>
 
@@ -73,30 +73,68 @@
       </ul>
     </nav>
 
-    <Burger/>
+    <Burger />
   </div>
 </template>
 
 <script>
+
+function hideNavbar()
+{
+  let navbar = document.getElementById("navbar");
+
+  navbar.style.display = "none";
+  navbar.style.width = "200px";
+}
+
+function showNavbar(wdt)
+{
+  let navbar = document.getElementById("navbar");
+  
+  navbar.style.display = "initial";
+  navbar.style.width = wdt;
+}
+
+function toggleNavbarByWindowWidth(wdt)
+{
+  if ($(window).width() < 768)
+  {
+    hideNavbar(wdt);
+    return false;
+  }
+
+  return true;
+}
+
 $(function() {
-    $('#burger-container').click(function() {
-        if (document.getElementById('navbar').style.display == "none")
-        {
-            document.getElementById('navbar').style.display = "initial";
-            document.getElementById('navbar').style.width = "100%";
-        }
-        else
-        {
-            document.getElementById('navbar').style.display = "none";
-            document.getElementById('navbar').style.width = "200px";
-        }
-    });
+  $("#burger-container").click(function() {
+    let navbar = document.getElementById("navbar");
+
+    if (navbar.style.display == "none") {
+      showNavbar("100%");
+    } else {
+      hideNavbar();
+    }
+  });
+
+  $("#navbar a").click(function() {
+    let burger = document.getElementById("burger-container");
+    
+    toggleNavbarByWindowWidth("100%");
+  });
+
+  window.addEventListener("resize", function() {
+    if (toggleNavbarByWindowWidth("100%"))
+    {
+      showNavbar("200px");
+    }
+  });
 });
 
-import Burger from '@/components/Burger.vue';
+import Burger from "@/components/Burger.vue";
 export default {
-    components: {
-        Burger
-    }
+  components: {
+    Burger
+  }
 };
 </script>
